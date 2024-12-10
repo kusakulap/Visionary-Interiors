@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Redesign Room Image</h2>
+    <div class="form-group mt-1">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}"> {{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="prompt" class="form-label">Describe the redesign</label>
+            <input type="text" class="form-control" id="prompt" name="prompt" required>
+        </div>
+        <div class="mb-3">
+            <label for="input_image" class="form-label">Upload the room image</label>
+            <input type="file" class="form-control" id="input_image" name="input_image" accept="image/*" required>
+        </div>
+        <div class="mb-3">
+            <label for="strength" class="form-label">Strength</label>
+            <input type="range" class="form-range" id="strength" name="strength" min="0" max="1" step="0.01"
+                value="0.75">
+        </div>
+        <button type="submit" class="btn btn-primary">Generate Image</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Error</h2>
+    <div class="alert alert-danger" role="alert">
+        <p>Oops! Something went wrong while generating the image.</p>
+        {% if error %}
+        <p><strong>Error details:</strong> {{ error }}</p>
+        {% else %}
+        <p>Please try again later.</p>
+        {% endif %}
+    </div>
+    <a href="{% url 'generate_image' %}" class="btn btn-primary">Go Back</a>
+</div>
+{% endblock %}

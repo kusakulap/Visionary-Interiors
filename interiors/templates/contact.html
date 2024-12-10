@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .contact {
+    padding: 40px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.contact h1 {
+    color: #333;
+}
+.contact .form-txt h3 {
+    margin-top: 20px;
+    color: #555;
+}
+.contact .form-details input,
+.contact .form-details textarea {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+</style>
+<div class="contact container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-txt">
+                <h1 class="mb-4">Contact Us</h1>
+                <div class="form-group">
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="alert alert-dismissible fade show {{ message.tags }}" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <p class="mb-4">As you might expect of a company that began as a high-end interiors
+                    contractor, we pay strict attention.</p>
+                <h3 class="fw-bold">USA</h3>
+                <p>195 E Parker Square Dr, Parker, CO 801<br><strong>+1 982-314-0958</strong></p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <form method="POST" action="{% url 'contact' %}">
+                {% csrf_token %}
+                <div class="form-outline mb-4">
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Name" required />
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Email" required />
+                </div>
+                <div class="form-outline mb-4">
+                    <textarea name="message" id="message" class="form-control" rows="5" placeholder="Message"
+                        required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">SEND MESSAGE</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-2">
+    <h2 class="text-center">Redesigned Room</h2>
+    <div class="form-group mt-1">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}"> {{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <!-- Image Comparison Container -->
+    <div class="image-compare-container">
+        <div class="image-compare-overlay" style="background-image: url('{{ generated_image_url }}');"></div>
+        <img src="{{ input_image_url }}" alt="Original Image" class="image-compare-base">
+        <input type="range" min="0" max="100" value="50" class="slider" id="imageCompareSlider"
+            oninput="moveSlider(this.value)">
+    </div>
+    <div class="text-center mt-4">
+        <a href="{% url 'generate_image' %}" class="btn btn-primary">Generate
+            another Image</a>
+    </div>
+
+</div>
+
+<style>
+    /* Container styling */
+    .image-compare-container {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        height: 400px;
+        margin: 0 auto;
+        overflow: hidden;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+    }
+
+    /* Original image styling */
+    .image-compare-base {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    /* Overlay image styling */
+    .image-compare-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 50%;
+        /* Initial width for overlay */
+        background-size: cover;
+        background-position: center;
+        border-right: 2px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Slider styling */
+    .slider {
+        position: absolute;
+        width: 100%;
+        bottom: 15px;
+        left: 0;
+        z-index: 10;
+        background: transparent;
+        -webkit-appearance: none;
+        appearance: none;
+        height: 4px;
+        cursor: pointer;
+    }
+
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background-color: #007bff;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background-color: #007bff;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    }
+</style>
+
+<script>
+    // Function to adjust overlay width based on slider value
+    function moveSlider(value) {
+        document.querySelector('.image-compare-overlay').style.width = value + "%";
+    }
+</script>
+{% endblock %}
